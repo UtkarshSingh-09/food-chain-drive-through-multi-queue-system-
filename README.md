@@ -1,4 +1,37 @@
-Fast Food Drive-Thru Simulation 🍔🍟A C-based simulation of a multi-counter drive-thru system. This program uses Circular Queues to manage customer orders and implements an intelligent Load Balancing algorithm to assign new customers to the counter with the least estimated waiting time.📋 FeaturesMulti-Counter System: Simulates 3 distinct service counters running in parallel.Smart Queue Assignment: Customers are not assigned to the shortest line by headcount, but by total preparation time. The system calculates the wait time of every queue and assigns the new customer to the fastest one.Circular Queue Implementation: Efficient memory usage using array-based circular queues.Interactive Menu: Simple CLI interface to add customers, serve orders, and view queue status.Data Tracking: Tracks Customer ID, Order Name, and Preparation Time.🛠️ Data Structures1. CustomerStores individual order details:id: Unique sequential ID.orderName: Description of the food.prepTime: Time required to fulfill the order (in minutes).2. CounterQueueRepresents a checkout counter:queue[MAX]: Array storing Customer objects.front / rear: Pointers for circular queue management.count: Current number of people in the line.🚀 How to Compile and RunYou need a standard C compiler (like GCC or Clang) to run this program.1. Save the fileSave the code as drive_thru.c.2. CompileOpen your terminal or command prompt and run:Bashgcc drive_thru.c -o drive_thru
-3. RunExecute the compiled program:Windows:Bashdrive_thru.exe
-Linux/macOS:Bash./drive_thru
-🎮 Usage GuideUpon running the program, you will see the following menu:Add New Customer:Enter the Order Name (e.g., Burger). Note: Use single words for names as the input does not support spaces.Enter Preparation Time (e.g., 5 minutes).The system will automatically assign the customer to the best counter.Serve Customer:Select a counter number (1, 2, or 3).The customer at the front of that line will be removed (served).Display All Counters:Shows the current status of all 3 queues, including Customer IDs and their orders.Exit:Terminates the simulation.🧠 Logic Explanation: The "Best Counter" AlgorithmThe core feature of this simulation is the findBestCounter function.Instead of simply checking which queue has the fewest people (q.count), the program iterates through the queues and calculates the Total Waiting Time:$$\text{Total Time} = \sum (\text{Prep Time of all customers in queue})$$The new customer is added to the queue where this sum is the lowest. This prevents a scenario where a line with 1 person ordering a feast (30 mins) blocks a line, while another line has 3 people ordering just drinks (2 mins each).📝 Code StructureinitQueue: Initializes pointers for a new queue.isFull / isEmpty: Utility checks for queue status.enqueue: Adds a customer to the rear (Circular logic).dequeue: Removes a customer from the front (Circular logic).totalWaitingTime: Sums up prep time for a specific queue.findBestCounter: Compares waiting times to determine where to place a new customer.
+# Fast Food Drive-Thru Simulation 🍔🍟
+
+A C-based simulation of a multi-counter drive-thru system. This program uses **Circular Queues** to manage customer orders and implements an intelligent **Load Balancing** algorithm to assign new customers to the counter with the least estimated waiting time.
+
+## 📋 Features
+
+* **Multi-Counter System:** Simulates 3 distinct service counters running in parallel.
+* **Smart Queue Assignment:** Customers are not assigned to the shortest line by *headcount*, but by **total preparation time**. The system calculates the wait time of every queue and assigns the new customer to the fastest one.
+* **Circular Queue Implementation:** Efficient memory usage using array-based circular queues.
+* **Interactive Menu:** Simple CLI interface to add customers, serve orders, and view queue status.
+* **Data Tracking:** Tracks Customer ID, Order Name, and Preparation Time.
+
+## 🛠️ Data Structures
+
+### 1. `Customer`
+Stores individual order details:
+* `id`: Unique sequential ID.
+* `orderName`: Description of the food.
+* `prepTime`: Time required to fulfill the order (in minutes).
+
+### 2. `CounterQueue`
+Represents a checkout counter:
+* `queue[MAX]`: Array storing `Customer` objects.
+* `front` / `rear`: Pointers for circular queue management.
+* `count`: Current number of people in the line.
+
+## 🚀 How to Compile and Run
+
+You need a standard C compiler (like GCC or Clang) to run this program.
+
+### 1. Save the file
+Save your C code as `drive_thru.c`.
+
+### 2. Compile
+Open your terminal or command prompt and run:
+```bash
+gcc drive_thru.c -o drive_thru
